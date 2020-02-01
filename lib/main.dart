@@ -5,9 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'MainActivity.dart';
-import 'SkyScannerUtilities/ApiManager.dart';
-
-
+import 'package:http/http.dart' as http;
 void main() => runApp(MyApp());
 
 /// This Widget is the main application widget.
@@ -23,3 +21,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
