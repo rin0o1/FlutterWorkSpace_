@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 /// This is the stateless widget that the main application instantiates.
 class MainActivity extends StatelessWidget {
+
   MainActivity({Key key}) : super(key: key);
 
   @override
