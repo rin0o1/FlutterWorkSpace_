@@ -16,7 +16,6 @@ void main() => runApp(MyApp());
 /// This Widget is the main application widget.
  class MyApp extends StatelessWidget {
 
-
   static const String _title = 'Flutter Code Sample';
 
   MyApp()
@@ -33,9 +32,9 @@ void main() => runApp(MyApp());
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
       print(response.body);
-    } else {
+    } else  {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Errore al caricamento');
     }
   }
 
@@ -46,7 +45,6 @@ void main() => runApp(MyApp());
       home: MainActivity(),
     );
   }
-
 
 }
 
