@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-
-
+import 'Utilities/APIUtilities.dart';
+import 'Utilities/ObjectFlightOffer.dart';
+import 'dart:convert';
 /// This is the stateless widget that the main application instantiates.
 class MainActivity extends StatelessWidget {
 
   MainActivity({Key key}) : super(key: key);
+
+  apiManager _apiManager =new apiManager();
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +36,9 @@ class MainActivity extends StatelessWidget {
       appBar: AppBar(
         title: Text('SKYSCANNER'),
       ),
-      drawer: Drawer(
+      /*drawer: Drawer(
         child: SingleChildScrollView(
-          /*  child: SafeArea(
+            child: SafeArea(
             child: AboutListTile(
               icon: Icon(Icons.info),
               applicationIcon: FlutterLogo(),
@@ -43,42 +47,58 @@ class MainActivity extends StatelessWidget {
               applicationLegalese: '© 2019 The Chromium Authors',
               aboutBoxChildren: aboutBoxChildren,
             ),
-          ),*/
+          ),
         ),
+      ),*/
+      body: Center(
+        child: Column(children: <Widget>[
+          Row(
+
+
+            children: <Widget>[
+              new Flexible(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: 'Da',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+
+              new Flexible(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: 'A',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: <Widget>[
+              FloatingActionButton(
+                onPressed: (){
+
+                    String JsonRespons;
+                  _apiManager.GetFlightOffers().then((val) {
+                    JsonRespons=val.toString();
+                  });
+
+
+                    Map userMap = jsonDecode(JsonRespons);
+                    FlightOffer fligh = FlightOffer.fromJson(userMap);
+                    print('ok');
+
+                },
+                child: Text('Prova'),
+              ),
+            ],
+          ),
+        ]),
       ),
-     body: Center(
-      child : Column(
-          children: <Widget>[
-         Row(
-           children: <Widget>[
-
-           ],
-         ),
-            Column(
-           children: <Widget>[
-             Padding (padding :  EdgeInsets.all(5)),
-
-             TextField(
-               textAlign: TextAlign.center,
-               decoration: InputDecoration(
-                   hintText: 'Da',
-                 border: OutlineInputBorder(),
-               ),
-             ),
-             Padding (padding :  EdgeInsets.all(5)),
-             TextField(
-               textAlign: TextAlign.center,
-               decoration: InputDecoration(
-                   hintText: 'A',
-                  border: OutlineInputBorder(),
-               ),
-             ),
-           ],
-         ),
-      ]
-      ),
-     ),
-      );
-
+    );
   }
 }
