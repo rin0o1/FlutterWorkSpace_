@@ -46,9 +46,35 @@ class MainActivity extends StatelessWidget {
       ),*/
       body: Center(
         child: Column(children: <Widget>[
+          new RadioWidget(),
+          /*Row(
+            children: <Widget>[
+            ],
+            children: <Widget>[
+              new Flexible(
+                child: ListTile(
+                  title: const Text('Andata e ritorno'),
+                  leading: Radio(
+                    value: 1,
+                    groupValue: 1,
+                  ),
+                  onTap: () {},
+                ),
+              ),
+              new Flexible(
+                child: ListTile(
+                  title: const Text('Sola andata'),
+                  enabled: true,
+                  leading: Radio(
+                    value: 0,
+                    groupValue: 1,
+                    onChanged: null,
+                  ),
+                ),
+              ),
+            ],
+          ),*/
           Row(
-
-
             children: <Widget>[
               new Flexible(
                 child: TextField(
@@ -59,26 +85,21 @@ class MainActivity extends StatelessWidget {
                   ),
                 ),
               ),
-
               new Flexible(
                 child: TextField(
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  hintText: 'A',
-                  border: OutlineInputBorder(),
-              ),
-              ),
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: 'A',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
               ),
             ],
           ),
           Column(
             children: <Widget>[
               FloatingActionButton(
-                onPressed: (){
-                  /*
-                    scivere metodo qua!!
-                   */
-                },
+                onPressed: () {},
                 child: Text('Prova!'),
               ),
             ],
@@ -86,5 +107,60 @@ class MainActivity extends StatelessWidget {
         ]),
       ),
     );
+  }
+}
+
+class RadioWidget extends StatefulWidget {
+  @override
+  _RadioWidgetState createState() => _RadioWidgetState();
+}
+
+class _RadioWidgetState extends State<RadioWidget> {
+  int solaAndata = 0;
+  int andataRitorno = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        new Flexible(
+          child: ListTile(
+            title: const Text('Andata e ritorno'),
+            enabled: true,
+            leading: Radio(
+              activeColor: Colors.blue,
+              value: andataRitorno,
+              groupValue: 1,
+              onChanged: null,
+            ),
+            onTap: () => cambiaStato(),
+          ),
+        ),
+        new Flexible(
+          child: ListTile(
+            onTap: () => cambiaStato(),
+            title: const Text('Sola andata'),
+            enabled: true,
+            leading: Radio(
+              activeColor: Colors.blue,
+              value: solaAndata,
+              groupValue: 1,
+              onChanged: null,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  void cambiaStato() {
+    if (solaAndata == 0) {
+      solaAndata = 1;
+      andataRitorno = 0;
+    } else {
+      solaAndata = 0;
+      andataRitorno = 1;
+    }
   }
 }
