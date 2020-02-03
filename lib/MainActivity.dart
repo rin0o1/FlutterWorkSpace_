@@ -30,9 +30,9 @@ class MainActivity extends StatelessWidget {
       appBar: AppBar(
         title: Text('SKYSCANNER'),
       ),
-      drawer: Drawer(
+      /*drawer: Drawer(
         child: SingleChildScrollView(
-          /*  child: SafeArea(
+            child: SafeArea(
             child: AboutListTile(
               icon: Icon(Icons.info),
               applicationIcon: FlutterLogo(),
@@ -41,42 +41,50 @@ class MainActivity extends StatelessWidget {
               applicationLegalese: '© 2019 The Chromium Authors',
               aboutBoxChildren: aboutBoxChildren,
             ),
-          ),*/
+          ),
         ),
-      ),
-     body: Center(
-      child : Column(
-          children: <Widget>[
-         Row(
-           children: <Widget>[
+      ),*/
+      body: Center(
+        child: Column(children: <Widget>[
+          Row(
 
-           ],
-         ),
-            Column(
-           children: <Widget>[
-             Padding (padding :  EdgeInsets.all(5)),
 
-             TextField(
-               textAlign: TextAlign.center,
-               decoration: InputDecoration(
-                   hintText: 'Da',
-                 border: OutlineInputBorder(),
-               ),
-             ),
-             Padding (padding :  EdgeInsets.all(5)),
-             TextField(
-               textAlign: TextAlign.center,
-               decoration: InputDecoration(
-                   hintText: 'A',
+            children: <Widget>[
+              new Flexible(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: 'Da',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+
+              new Flexible(
+                child: TextField(
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  hintText: 'A',
                   border: OutlineInputBorder(),
-               ),
-             ),
-           ],
-         ),
-      ]
+              ),
+              ),
+              ),
+            ],
+          ),
+          Column(
+            children: <Widget>[
+              FloatingActionButton(
+                onPressed: (){
+                  /*
+                    scivere metodo qua!!
+                   */
+                },
+                child: Text('Prova!'),
+              ),
+            ],
+          ),
+        ]),
       ),
-     ),
-      );
-
+    );
   }
 }
