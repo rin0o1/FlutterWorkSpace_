@@ -1,6 +1,9 @@
+
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dat';
+
 /// This is the stateless widget that the main application instantiates.
 class MainActivity extends StatelessWidget {
   MainActivity({Key key}) : super(key: key);
@@ -72,10 +75,7 @@ class MainActivity extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
-              FloatingActionButton(
-                onPressed: () {},
-                child: Text('Prova!'),
-              ),
+              selectDate()
             ],
           ),
         ]),
@@ -160,21 +160,38 @@ class _InputTextAutoComplete extends State<InputTextAutoComplete> {
 
 class selectDate extends StatefulWidget {
   @override
-  _selectDate createState() => _selectDate();
+  _widgetSelectDate createState() => _widgetSelectDate();
 }
 
-class _selectDate extends State<selectDate> {
+class _widgetSelectDate extends State<selectDate> {
+
+  DateTime selectedDate = DateTime.now();
+
+   Future _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Column(
-      children: <Widget>[
-        FlatButton(
-            onPressed: (){
-              DatePicker
-            },
-            )
-      ],
+    return  Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text("${selectedDate.toLocal()}".split(' ')[0]),
+            SizedBox(height: 20.0,),
+            RaisedButton(
+              onPressed: () => _selectDate(context),
+              child: Text('Select date'),
+            ),
+          ],
     );
   }
+
 }
