@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'dat';
 /// This is the stateless widget that the main application instantiates.
 class MainActivity extends StatelessWidget {
   MainActivity({Key key}) : super(key: key);
@@ -47,33 +48,6 @@ class MainActivity extends StatelessWidget {
       body: Center(
         child: Column(children: <Widget>[
           new RadioWidget(),
-          /*Row(
-            children: <Widget>[
-            ],
-            children: <Widget>[
-              new Flexible(
-                child: ListTile(
-                  title: const Text('Andata e ritorno'),
-                  leading: Radio(
-                    value: 1,
-                    groupValue: 1,
-                  ),
-                  onTap: () {},
-                ),
-              ),
-              new Flexible(
-                child: ListTile(
-                  title: const Text('Sola andata'),
-                  enabled: true,
-                  leading: Radio(
-                    value: 0,
-                    groupValue: 1,
-                    onChanged: null,
-                  ),
-                ),
-              ),
-            ],
-          ),*/
           Row(
             children: <Widget>[
               new Flexible(
@@ -113,7 +87,7 @@ class MainActivity extends StatelessWidget {
 class RadioWidget extends StatefulWidget {
   @override
   _RadioWidgetState createState() => _RadioWidgetState();
-}
+} //Widget stateful per la selezione di andata e ritorno o sola andata, radio in a row || Cod.Widget1
 
 class _RadioWidgetState extends State<RadioWidget> {
   int solaAndata = 0;
@@ -121,46 +95,86 @@ class _RadioWidgetState extends State<RadioWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return (new Row(
       children: <Widget>[
         new Flexible(
-          child: ListTile(
-            title: const Text('Andata e ritorno'),
-            enabled: true,
-            leading: Radio(
-              activeColor: Colors.blue,
-              value: andataRitorno,
-              groupValue: 1,
-              onChanged: null,
-            ),
+          child: InkWell(
             onTap: () => cambiaStato(),
+            child: ListTile(
+              title: const Text('Andata e ritorno'),
+              enabled: true,
+              leading: Radio(
+                activeColor: Colors.blue,
+                value: andataRitorno,
+                groupValue: 1,
+                onChanged: null,
+              ),
+            ),
           ),
         ),
         new Flexible(
-          child: ListTile(
+          child: InkWell(
             onTap: () => cambiaStato(),
-            title: const Text('Sola andata'),
-            enabled: true,
-            leading: Radio(
-              activeColor: Colors.blue,
-              value: solaAndata,
-              groupValue: 1,
-              onChanged: null,
+            child: ListTile(
+              title: const Text('Sola andata'),
+              enabled: true,
+              leading: Radio(
+                activeColor: Colors.blue,
+                value: solaAndata,
+                groupValue: 1,
+                onChanged: null,
+              ),
             ),
           ),
         ),
       ],
-    );
+    ));
   }
 
   @override
   void cambiaStato() {
-    if (solaAndata == 0) {
-      solaAndata = 1;
-      andataRitorno = 0;
-    } else {
-      solaAndata = 0;
-      andataRitorno = 1;
-    }
+    setState(() {
+      if (solaAndata == 0) {
+        solaAndata = 1;
+        andataRitorno = 0;
+      } else {
+        solaAndata = 0;
+        andataRitorno = 1;
+      }
+    });
+  }
+} //Widget stateful per la selezione di andata e ritorno o sola andata, radio in a row || Cod.Widget1
+
+class InputTextAutoComplete extends StatefulWidget {
+  @override
+  _InputTextAutoComplete createState() => _InputTextAutoComplete();
+}
+
+class _InputTextAutoComplete extends State<InputTextAutoComplete> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return null;
+  }
+}
+
+class selectDate extends StatefulWidget {
+  @override
+  _selectDate createState() => _selectDate();
+}
+
+class _selectDate extends State<selectDate> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(
+      children: <Widget>[
+        FlatButton(
+            onPressed: (){
+              DatePicker
+            },
+            )
+      ],
+    );
   }
 }
