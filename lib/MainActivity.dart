@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'Utilities/APIUtilities.dart';
-import 'Utilities/ObjectFlightOffer.dart';
+import 'Utilities/Model/ModelFlight.dart';
 import 'dart:convert';
+
 /// This is the stateless widget that the main application instantiates.
 class MainActivity extends StatelessWidget {
 
   MainActivity({Key key}) : super(key: key);
 
   apiManager _apiManager =new apiManager();
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,16 +82,14 @@ class MainActivity extends StatelessWidget {
               FloatingActionButton(
                 onPressed: (){
 
-                    String JsonRespons;
-                  _apiManager.GetFlightOffers().then((val) {
-                    JsonRespons=val.toString();
+                  //Prendere i dati dai form, controllare gli input e fare la richiesta
+                  //es
+                  FlightOffer fligh = null;
+                  _apiManager.GetFlightOffers().then((result) {
+                    if (result!=null){fligh=result;}
                   });
-
-
-                    Map userMap = jsonDecode(JsonRespons);
-                    FlightOffer fligh = FlightOffer.fromJson(userMap);
-                    print('ok');
-
+                  print('-----------');
+                  //fine es
                 },
                 child: Text('Prova'),
               ),

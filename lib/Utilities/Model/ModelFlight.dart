@@ -1,3 +1,35 @@
+
+class FlightOfferRequest
+{
+    String origin;
+    String departureData;
+    bool oneWay;
+    int Duration;
+    bool nonStop;
+    double maxPrice;
+
+
+    String get _origin => origin;
+    set _origin(String origin) => origin= _origin;
+
+    String get _depertureData => _depertureData;
+    set _depertureData (String departureData) => departureData= _depertureData;
+
+    bool get _oneWay => oneWay;
+    set _oneWay (bool oneWay) => oneWay= _oneWay;
+
+    int get _Duration => Duration;
+    set _Duration (int Duration) => Duration = _Duration;
+
+    bool get _nonStop => nonStop;
+    set _nonStop (bool nonStop) => nonStop =_nonStop;
+
+    double get _maxPrice => maxPrice;
+    set _maxPrice (double maxPrice )=> maxPrice= _maxPrice;
+
+}
+
+
 class FlightOffer {
   List<Data> _data;
   Dictionaries _dictionaries;
