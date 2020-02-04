@@ -1,8 +1,6 @@
-
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 /// This is the stateless widget that the main application instantiates.
 class MainActivity extends StatelessWidget {
@@ -73,8 +71,9 @@ class MainActivity extends StatelessWidget {
               ),
             ],
           ),
-          Column(
+          Row(
             children: <Widget>[
+              selectDate(),
               selectDate()
             ],
           ),
@@ -87,7 +86,9 @@ class MainActivity extends StatelessWidget {
 class RadioWidget extends StatefulWidget {
   @override
   _RadioWidgetState createState() => _RadioWidgetState();
-} //Widget stateful per la selezione di andata e ritorno o sola andata, radio in a row || Cod.Widget1
+}
+
+///Widget stateful per la selezione di andata e ritorno o sola andata, radio in a row || Cod.Widget1
 
 class _RadioWidgetState extends State<RadioWidget> {
   int solaAndata = 0;
@@ -150,13 +151,15 @@ class InputTextAutoComplete extends StatefulWidget {
   _InputTextAutoComplete createState() => _InputTextAutoComplete();
 }
 
+///Widget per impostare il luogo di partenza e arrivo, autocompletante TODO
+
 class _InputTextAutoComplete extends State<InputTextAutoComplete> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return null;
   }
-}
+} //da fare
 
 class selectDate extends StatefulWidget {
   @override
@@ -164,14 +167,13 @@ class selectDate extends StatefulWidget {
 }
 
 class _widgetSelectDate extends State<selectDate> {
-
   DateTime selectedDate = DateTime.now();
 
-   Future _selectDate(BuildContext context) async {
+  Future _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        firstDate: DateTime(DateTime.now().year),
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate)
       setState(() {
@@ -181,17 +183,11 @@ class _widgetSelectDate extends State<selectDate> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text("${selectedDate.toLocal()}".split(' ')[0]),
-            SizedBox(height: 20.0,),
-            RaisedButton(
-              onPressed: () => _selectDate(context),
-              child: Text('Select date'),
-            ),
-          ],
+    return Container(
+      child:RaisedButton(
+        onPressed: () => _selectDate(context),
+        child: Text("${selectedDate.toLocal()}".split(' ')[0]),
+      ),
     );
   }
-
 }
