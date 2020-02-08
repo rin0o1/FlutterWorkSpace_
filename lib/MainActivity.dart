@@ -2,9 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter_app/Utilities/DbManager.dart';
+
 /// This is the stateless widget that the main application instantiates.
 class MainActivity extends StatelessWidget {
-  MainActivity({Key key}) : super(key: key);
+  MainActivity({Key key}) : super(key: key)
+  {
+    //fa la richiesta al db
+     DbManager(uid: "id").prova();
+  }
 
   @override
   Widget build(BuildContext context) {

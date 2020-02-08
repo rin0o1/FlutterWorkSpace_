@@ -1,19 +1,19 @@
 
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DbManager{
-   //richieste al db
 
-  String OriginAutocomplete(String OriginName)
+  final String uid;
+  DbManager({this.uid});
+
+  final CollectionReference collectionReference=Firestore.instance.collection("tProva");
+
+
+  Future prova ()async
   {
-
+    return await collectionReference.document(uid).setData({
+      'provacolonna':"prova"
+    });
   }
-
-  String GetIataCodesFromCity(String FromCity)
-  {
-    return "";
-  }
-
-
 
 }
