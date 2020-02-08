@@ -193,31 +193,31 @@ class _widgetSelectDate extends State<selectDate> {
   }
 
 
-    @override
-    Widget build(BuildContext context) {
-      return Container(
-        child: Column(
-          children: <Widget>[
-            Text(widget.foo),
-            RaisedButton(
-              onPressed: () {
-                if (widget.enabled) {
-                  _selectDate(context);
-                } else {
-                  showInSnackBar("Bottone diattivato", context);
-                }
-              },
-              child: Text("${selectedDate.toLocal()}".split(' ')[0]),
-            ),
-          ],
-        ),
-      );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Text(widget.foo),
+          RaisedButton(
+            onPressed: () {
+              if (widget.enabled) {
+                _selectDate(context);
+              } else {
+                showInSnackBar("Bottone diattivato", context);
+              }
+            },
+            child: Text("${selectedDate.toLocal()}".split(' ')[0]),
+          ),
+        ],
+      ),
+    );
   }
+}
 
 void showInSnackBar(String value, context) {
   Scaffold.of(context).showSnackBar(new SnackBar(
-      content: new Text(value),
-     duration: Duration(seconds: 2),
+    content: new Text(value),
+    duration: Duration(seconds: 2),
   ));
 }
