@@ -10,7 +10,6 @@ class apiManager
 
 
 
-
   Future<FlightOffer> GetFlightOffers_( FlightOfferRequest flightOfferRequest) async {
 
     if (flightOfferRequest== null){return null;}
