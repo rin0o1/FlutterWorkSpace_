@@ -73,8 +73,14 @@ class MainActivity extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
-              selectDate(),
-              selectDate()
+              selectDate(
+                foo: "Andata",
+                enabled: true,
+              ),
+              selectDate(
+                foo: "Ritorno",
+                enabled: false,
+              )
             ],
           ),
         ]),
@@ -162,6 +168,9 @@ class _InputTextAutoComplete extends State<InputTextAutoComplete> {
 } //da fare
 
 class selectDate extends StatefulWidget {
+  final String foo;
+  final bool enabled;
+  const selectDate({Key key, this.foo, this.enabled}) : super(key: key);
   @override
   _widgetSelectDate createState() => _widgetSelectDate();
 }
@@ -173,7 +182,9 @@ class _widgetSelectDate extends State<selectDate> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(DateTime.now().year),
+        firstDate: DateTime(DateTime
+            .now()
+            .year),
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate)
       setState(() {
@@ -181,13 +192,32 @@ class _widgetSelectDate extends State<selectDate> {
       });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child:RaisedButton(
-        onPressed: () => _selectDate(context),
-        child: Text("${selectedDate.toLocal()}".split(' ')[0]),
-      ),
-    );
+
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        child: Column(
+          children: <Widget>[
+            Text(widget.foo),
+            RaisedButton(
+              onPressed: () {
+                if (widget.enabled) {
+                  _selectDate(context);
+                } else {
+                  showInSnackBar("Bottone diattivato", context);
+                }
+              },
+              child: Text("${selectedDate.toLocal()}".split(' ')[0]),
+            ),
+          ],
+        ),
+      );
+    }
   }
+
+void showInSnackBar(String value, context) {
+  Scaffold.of(context).showSnackBar(new SnackBar(
+      content: new Text(value),
+     duration: Duration(seconds: 2),
+  ));
 }
