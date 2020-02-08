@@ -1,14 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Utilities/APIUtilities.dart';
-import 'Utilities/Model/ModelFlight.dart';
-import 'dart:convert';
+import 'dart:async';
 
 /// This is the stateless widget that the main application instantiates.
 class MainActivity extends StatelessWidget {
-
   MainActivity({Key key}) : super(key: key);
-
-  apiManager _apiManager =new apiManager();
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +48,8 @@ class MainActivity extends StatelessWidget {
       ),*/
       body: Center(
         child: Column(children: <Widget>[
+          new RadioWidget(),
           Row(
-
-
             children: <Widget>[
               new Flexible(
                 child: TextField(
@@ -65,7 +60,6 @@ class MainActivity extends StatelessWidget {
                   ),
                 ),
               ),
-
               new Flexible(
                 child: TextField(
                   textAlign: TextAlign.center,
@@ -77,26 +71,153 @@ class MainActivity extends StatelessWidget {
               ),
             ],
           ),
-          Column(
+          Row(
             children: <Widget>[
-              FloatingActionButton(
-                onPressed: (){
-
-                  //Prendere i dati dai form, controllare gli input e fare la richiesta
-                  //es
-                  FlightOffer fligh = null;
-                  _apiManager.GetFlightOffers().then((result) {
-                    if (result!=null){fligh=result;}
-                  });
-                  print('-----------');
-                  //fine es
-                },
-                child: Text('Prova'),
+              selectDate(
+                foo: "Andata",
+                enabled: true,
               ),
+              selectDate(
+                foo: "Ritorno",
+                enabled: false,
+              )
             ],
           ),
         ]),
       ),
     );
   }
+}
+
+class RadioWidget extends StatefulWidget {
+  @override
+  _RadioWidgetState createState() => _RadioWidgetState();
+}
+
+///Widget stateful per la selezione di andata e ritorno o sola andata, radio in a row || Cod.Widget1
+
+class _RadioWidgetState extends State<RadioWidget> {
+  int solaAndata = 0;
+  int andataRitorno = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return (new Row(
+      children: <Widget>[
+        new Flexible(
+          child: InkWell(
+            onTap: () => cambiaStato(),
+            child: ListTile(
+              title: const Text('Andata e ritorno'),
+              enabled: true,
+              leading: Radio(
+                activeColor: Colors.blue,
+                value: andataRitorno,
+                groupValue: 1,
+                onChanged: null,
+              ),
+            ),
+          ),
+        ),
+        new Flexible(
+          child: InkWell(
+            onTap: () => cambiaStato(),
+            child: ListTile(
+              title: const Text('Sola andata'),
+              enabled: true,
+              leading: Radio(
+                activeColor: Colors.blue,
+                value: solaAndata,
+                groupValue: 1,
+                onChanged: null,
+              ),
+            ),
+          ),
+        ),
+      ],
+    ));
+  }
+
+  @override
+  void cambiaStato() {
+    setState(() {
+      if (solaAndata == 0) {
+        solaAndata = 1;
+        andataRitorno = 0;
+      } else {
+        solaAndata = 0;
+        andataRitorno = 1;
+      }
+    });
+  }
+} //Widget stateful per la selezione di andata e ritorno o sola andata, radio in a row || Cod.Widget1
+
+class InputTextAutoComplete extends StatefulWidget {
+  @override
+  _InputTextAutoComplete createState() => _InputTextAutoComplete();
+}
+
+///Widget per impostare il luogo di partenza e arrivo, autocompletante TODO
+
+class _InputTextAutoComplete extends State<InputTextAutoComplete> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return null;
+  }
+} //da fare
+
+class selectDate extends StatefulWidget {
+  final String foo;
+  final bool enabled;
+  const selectDate({Key key, this.foo, this.enabled}) : super(key: key);
+  @override
+  _widgetSelectDate createState() => _widgetSelectDate();
+}
+
+class _widgetSelectDate extends State<selectDate> {
+  DateTime selectedDate = DateTime.now();
+
+  Future _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(DateTime
+            .now()
+            .year),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Text(widget.foo),
+          RaisedButton(
+            onPressed: () {
+              if (widget.enabled) {
+                _selectDate(context);
+              } else {
+                showInSnackBar("Bottone diattivato", context);
+              }
+            },
+            child: Text("${selectedDate.toLocal()}".split(' ')[0]),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+void showInSnackBar(String value, context) {
+  Scaffold.of(context).showSnackBar(new SnackBar(
+    content: new Text(value),
+    duration: Duration(seconds: 2),
+  ));
 }

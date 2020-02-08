@@ -2,9 +2,7 @@
 
 
 class DbManager{
-
-    //richieste al db
-
+   //richieste al db
 
   String OriginAutocomplete(String OriginName)
   {
