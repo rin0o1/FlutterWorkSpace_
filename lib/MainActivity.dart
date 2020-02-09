@@ -6,11 +6,8 @@ import 'package:flutter_app/Utilities/DbManager.dart';
 
 /// This is the stateless widget that the main application instantiates.
 class MainActivity extends StatelessWidget {
-  MainActivity({Key key}) : super(key: key)
-  {
-    //fa la richiesta al db
-     DbManager(uid: "id").prova();
-  }
+
+  MainActivity({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
